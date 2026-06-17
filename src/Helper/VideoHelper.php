@@ -88,6 +88,16 @@ class VideoHelper
 
         $filename = 'banner.' . $extension;
 
+        // Remove the other format to avoid leaving stale files
+        foreach (self::ALLOWED_EXTENSIONS as $ext) {
+            if ($ext !== $extension) {
+                $stale = self::getUploadDir() . 'banner.' . $ext;
+                if (file_exists($stale)) {
+                    unlink($stale);
+                }
+            }
+        }
+
         try {
             $file->move(self::getUploadDir(), $filename);
         } catch (\Exception $e) {
