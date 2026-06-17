@@ -10,7 +10,20 @@
     </h3>
     <div class="card-body">
       <div class="form-wrapper">
+
+        {% if currentVideoUrl %}
+          <div class="form-group row">
+            <label class="form-control-label col-sm-2">
+              {{ 'Current video'|trans({}, 'Modules.Awvideobanner.Admin') }}
+            </label>
+            <div class="col-sm-8">
+              <video src="{{ currentVideoUrl }}" controls style="max-width:100%;max-height:270px;"></video>
+            </div>
+          </div>
+        {% endif %}
+
         {{ form_widget(generalForm) }}
+
       </div>
     </div>
     <div class="card-footer">
@@ -24,13 +37,12 @@
   {{ form_end(generalForm) }}
 {% endblock %}
 
-
 {% block stylesheets %}
   {{ parent() }}
   <link rel="stylesheet" href="{{ asset('../modules/awvideobanner/views/css/admin/form.css') }}">
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
+  {{ parent() }}
   <script src="{{ asset('../modules/awvideobanner/views/js/admin/form.js') }}"></script>
 {% endblock %}

@@ -1,18 +1,5 @@
 <?php
 /**
- * Copyright since 2007 PrestaShop SA and Contributors
- * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License version 3.0
- * that is bundled with this package in the file LICENSE.md.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/AFL-3.0
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
  * @author    Axelweb <contact@axelweb.fr>
  * @copyright 2007-2024 Axelweb
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
@@ -22,6 +9,8 @@ declare(strict_types=1);
 
 namespace Axelweb\AwVideoBanner\Controller;
 
+use Axelweb\AwVideoBanner\Helper\VideoHelper;
+use Configuration;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,25 +19,41 @@ class AdminConfigurationController extends FrameworkBundleAdminController
 {
     public function index(Request $request): Response
     {
-        $generalFormDataHandler = $this->get('axelweb.awvideobanner.form.general_form_data_handler');
+        $formHandler = $this->get('axelweb.awvideobanner.form.general_form_data_handler');
+        $form = $formHandler->getForm();
+        $form->handleRequest($request);
 
-        $generalForm = $generalFormDataHandler->getForm();
-        $generalForm->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $hasError = false;
 
-        if ($generalForm->isSubmitted() && $generalForm->isValid()) {
-            $errors = $generalFormDataHandler->save($generalForm->getData());
+            $videoFile = $data['video'] ?? null;
+            if ($videoFile !== null) {
+                $result = VideoHelper::processUpload($videoFile);
 
-            if (empty($errors)) {
-                $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
-
-                return $this->redirectToRoute('awvideobanner_form_configuration');
+                if (isset($result['error'])) {
+                    $this->addFlash('error', $result['error']);
+                    $hasError = true;
+                } else {
+                    if (isset($result['warning'])) {
+                        $this->addFlash('warning', $result['warning']);
+                    }
+                    Configuration::updateValue('AWVIDEOBANNER_VIDEO_PATH', $result['filename']);
+                }
             }
 
-            $this->flashErrors($errors);
+            Configuration::updateValue('AWVIDEOBANNER_MUTED', !empty($data['muted']) ? '1' : '0');
+
+            if (!$hasError) {
+                $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
+            }
+
+            return $this->redirectToRoute('awvideobanner_form_configuration');
         }
 
         return $this->render('@Modules/awvideobanner/views/templates/admin/form.html.twig', [
-            'generalForm' => $generalForm->createView(),
+            'generalForm'     => $form->createView(),
+            'currentVideoUrl' => VideoHelper::getCurrentVideoUrl(),
         ]);
     }
 }

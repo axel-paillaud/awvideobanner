@@ -29,6 +29,8 @@ if (!defined('_PS_VERSION_')) {
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use Axelweb\AwVideoBanner\Helper\VideoHelper;
+
 class AwVideoBanner extends Module
 {
     public function __construct()
@@ -49,7 +51,7 @@ class AwVideoBanner extends Module
         $this->confirmUninstall = $this->trans('Are you sure you want to uninstall this module?', [], 'Modules.Awvideobanner.Admin');
 
         $this->ps_versions_compliancy = [
-            'min' => '1.7',
+            'min' => '1.7.8',
             'max' => _PS_VERSION_,
         ];
     }
@@ -65,9 +67,13 @@ class AwVideoBanner extends Module
             Shop::setContext(Shop::CONTEXT_ALL);
         }
 
+        VideoHelper::ensureUploadDir();
+
         $installed = parent::install()
             && $this->registerHook('actionFrontControllerSetMedia')
-            && Configuration::updateValue('AWVIDEOBANNER_VIDEO_PATH', '');
+            && $this->registerHook('displayHome')
+            && Configuration::updateValue('AWVIDEOBANNER_VIDEO_PATH', '')
+            && Configuration::updateValue('AWVIDEOBANNER_MUTED', '1');
 
         // Prevent 'Unable to generate a URL for the named route [...]' error,
         // clear Symfony cache
@@ -81,7 +87,8 @@ class AwVideoBanner extends Module
     public function uninstall(): bool
     {
         return parent::uninstall()
-            && Configuration::deleteByName('AWVIDEOBANNER_VIDEO_PATH');
+            && Configuration::deleteByName('AWVIDEOBANNER_VIDEO_PATH')
+            && Configuration::deleteByName('AWVIDEOBANNER_MUTED');
     }
 
     /**
@@ -93,6 +100,25 @@ class AwVideoBanner extends Module
     {
         $route = $this->get('router')->generate('awvideobanner_form_configuration');
         Tools::redirectAdmin($route);
+    }
+
+    public function hookDisplayHome()
+    {
+        $videoFilename = Configuration::get('AWVIDEOBANNER_VIDEO_PATH');
+
+        if (empty($videoFilename)) {
+            return '';
+        }
+
+        $ext = pathinfo($videoFilename, PATHINFO_EXTENSION);
+
+        $this->context->smarty->assign([
+            'awvideobanner_video_url'  => VideoHelper::getUploadUrl() . $videoFilename,
+            'awvideobanner_video_type' => $ext === 'webm' ? 'video/webm' : 'video/mp4',
+            'awvideobanner_muted'      => (bool) Configuration::get('AWVIDEOBANNER_MUTED'),
+        ]);
+
+        return $this->display(__FILE__, 'views/templates/hook/displayHome.tpl');
     }
 
     /**
