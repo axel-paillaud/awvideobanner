@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="admin1771" source-language="fr-FR" target-language="fr-FR" datatype="plaintext">
+    <body>
+      <trans-unit id="5d3938182abca6496d3b975d9a599aa8">
+        <source>Video file</source>
+        <target>Fichier vidéo</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="5f1dfdf548826dc4ff9829dc8f7841c5">
+        <source>MP4 or WebM only, max 200 MB. Replaces the current video.</source>
+        <target>MP4 ou WebM uniquement, 200 Mo maximum. Remplace la vidéo actuelle.</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="6e290c73427a8f13854858cc3ad002fb">
+        <source>Mute video (no sound)</source>
+        <target>Couper le son (vidéo muette)</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="bed443abd2e22a1d91b3b746bc2a5b59">
+        <source>Video Banner</source>
+        <target>Bannière vidéo</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="1bbd3f2173ec73c99cc7de520d2d44d8">
+        <source>Upload and display a looping video banner on the front-office</source>
+        <target>Téléverser et afficher une bannière vidéo en boucle sur le front-office</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="bb8956c67b82c7444a80c6b2433dd8b4">
+        <source>Are you sure you want to uninstall this module?</source>
+        <target>Êtes-vous sûr de vouloir désinstaller ce module ?</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="9ca76efb81613287eb9286e94ea47f55">
+        <source>Video Banner Settings</source>
+        <target>Paramètres de la bannière vidéo</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="4d4393392300698e0db7495032e10e3e">
+        <source>Current video</source>
+        <target>Vidéo actuelle</target>
+        <note>Line: </note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
