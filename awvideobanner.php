@@ -135,13 +135,5 @@ class AwVideoBanner extends Module
             ]
         );
 
-        $this->context->controller->registerJavascript(
-            'module-awvideobanner-script',
-            'modules/' . $this->name . '/views/js/awvideobanner.js',
-            [
-                'position' => 'bottom',
-                'priority' => 200,
-            ]
-        );
     }
 }
