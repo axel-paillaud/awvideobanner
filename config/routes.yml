@@ -1,17 +1,7 @@
-awmodulebase_index:
-  path: /awmodulebase/index
-  methods: [GET]
-  defaults:
-    _controller: 'Axelweb\AwModuleBase\Controller\AwModuleBaseController::index'
-    # Needed to work with tab system
-    _legacy_controller: AwModuleBase
-    _legacy_link: AwModuleBase
-
-awmodulebase_form_configuration:
-  path: /awmodulebase/configuration
+awvideobanner_form_configuration:
+  path: /awvideobanner/configuration
   methods: [GET, POST]
   defaults:
-    _controller: 'Axelweb\AwModuleBase\Controller\AdminConfigurationController::index'
-    # Needed to work with tab system
-    _legacy_controller: AdminAwModuleBase
-    _legacy_link: AdminAwModuleBase
+    _controller: 'Axelweb\AwVideoBanner\Controller\AdminConfigurationController::index'
+    _legacy_controller: AdminAwVideoBanner
+    _legacy_link: AdminAwVideoBanner

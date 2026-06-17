@@ -1,6 +1,6 @@
 {
-  "name": "axelweb/awmodulebase",
-  "description": "PrestaShop module base template for development",
+  "name": "axelweb/awvideobanner",
+  "description": "PrestaShop module to upload and display a looping video banner",
   "type": "prestashop-module",
   "license": "AFL-3.0",
   "authors": [
@@ -11,7 +11,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Axelweb\\AwModuleBase\\": "src/"
+      "Axelweb\\AwVideoBanner\\": "src/"
     }
   },
   "require": {
@@ -19,7 +19,7 @@
   },
   "config": {
     "prepend-autoloader": false,
-    "autoloader-suffix": "AwModuleBase"
+    "autoloader-suffix": "AwVideoBanner"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.89"

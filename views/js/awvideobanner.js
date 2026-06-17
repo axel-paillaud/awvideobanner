@@ -1,4 +1,3 @@
-<?php
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -18,22 +17,8 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
 
-if (!defined('_PS_VERSION_')) {
-    exit;
-}
+// AwVideoBanner - Front Office Scripts
 
-$sql = [];
-
-// Example table deletion (commented by default)
-// Uncomment and adapt according to your needs
-/*
-$sql[] = 'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'awmodulebase_example`;';
-*/
-
-foreach ($sql as $query) {
-    if (!Db::getInstance()->execute($query)) {
-        return false;
-    }
-}
-
-return true;
+document.addEventListener('DOMContentLoaded', function() {
+    // Add your custom JavaScript here
+});

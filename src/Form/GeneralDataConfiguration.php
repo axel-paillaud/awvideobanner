@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace Axelweb\AwModuleBase\Form;
+namespace Axelweb\AwVideoBanner\Form;
 
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
@@ -30,7 +30,7 @@ use PrestaShop\PrestaShop\Core\ConfigurationInterface;
  */
 final class GeneralDataConfiguration implements DataConfigurationInterface
 {
-    public const AWMODULEBASE_SAMPLE_CONFIG = 'AWMODULEBASE_SAMPLE_CONFIG';
+    public const AWVIDEOBANNER_VIDEO_PATH = 'AWVIDEOBANNER_VIDEO_PATH';
 
     /**
      * @var ConfigurationInterface
@@ -45,7 +45,7 @@ final class GeneralDataConfiguration implements DataConfigurationInterface
     public function getConfiguration(): array
     {
         return [
-            'sample_config' => (string) $this->configuration->get(static::AWMODULEBASE_SAMPLE_CONFIG),
+            'sample_config' => (string) $this->configuration->get(static::AWVIDEOBANNER_VIDEO_PATH),
         ];
     }
 
@@ -72,7 +72,7 @@ final class GeneralDataConfiguration implements DataConfigurationInterface
         }
 
         // Persist
-        $this->configuration->set(static::AWMODULEBASE_SAMPLE_CONFIG, $sampleConfig);
+        $this->configuration->set(static::AWVIDEOBANNER_VIDEO_PATH, $sampleConfig);
 
         // empty = ok
         return $errors;

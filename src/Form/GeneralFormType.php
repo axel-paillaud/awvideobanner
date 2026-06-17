@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace Axelweb\AwModuleBase\Form;
+namespace Axelweb\AwVideoBanner\Form;
 
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,8 +33,8 @@ class GeneralFormType extends TranslatorAwareType
     {
         $builder
             ->add('sample_config', TextType::class, [
-                'label' => $this->trans('Sample configuration', 'Modules.Awmodulebase.Admin'),
-                'help' => $this->trans('Example configuration field', 'Modules.Awmodulebase.Admin'),
+                'label' => $this->trans('Sample configuration', 'Modules.Awvideobanner.Admin'),
+                'help' => $this->trans('Example configuration field', 'Modules.Awvideobanner.Admin'),
                 'required' => false,
                 'constraints' => [
                     new Assert\Length(['max' => 255]),
